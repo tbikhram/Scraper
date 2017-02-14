@@ -118,6 +118,42 @@ app.get("/article/:id" function(req, res){
 	});
 });
 
+//create a new note or replace an existing note
+app.post("/articles/:id", function(req, res){
+	//create a new note and pass the req.body to the entry
+	var newNote = new Note(req.body);
+
+	//and then save the new note the db
+	newNote.save(function(error, doc){
+		// here we log any errors
+		if(error){
+			console.log(error);
+		}
+		//otherwise
+		else{
+			//use the article id to find and update its note
+			Article.findOneUpdate({"_id": req.params.id }, {"note": doc._id})
+			//excute the above query 
+			.exec(function(err, doc){
+				if(err){
+					console.log(err);
+				}
+				else{
+					//or send the document to the browser
+					res.send(doc)
+				}
+			});
+			
+		}
+
+	});
+});
+
+//listen on port 3000
+app.listen(3000, function(){
+	console.log("App running on port 3000");
+});
+
 
 
 

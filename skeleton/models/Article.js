@@ -1,7 +1,7 @@
 //require for mongoose
 var mongoose = require("mongoose");
 //create schema class
-var schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 // create artile schema
 var ArcticleSchema = new Schema({
 // title is a required string
@@ -22,7 +22,7 @@ var ArcticleSchema = new Schema({
 });
 
 //create the article model with the artcilesSchema
-var Arcticle = mongoose.model("Article", ArcticleSchema);
+var Article = mongoose.model("Article", ArcticleSchema);
 
 //exporting the model
-module.export = Article;
+module.exports = Article;

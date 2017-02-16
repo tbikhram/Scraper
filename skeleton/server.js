@@ -39,6 +39,10 @@ db.once("open", function(){
 	console.log("Mongoose connection successful.");
 });
 
+
+
+
+
 //routes
 //===============
 
@@ -50,17 +54,17 @@ app.get("/", function(req, res){
 // Get request to scrape the Cnn website
 app.get("/scrape", function(req, res){
 	//here we grab the body of the html request 
-	request("http://www.cnn.com/", function(error, response, html){
+	request("http://www.cnn.com/world", function(error, response, html){
 	//then we load that into cheerio and save it to $ for a shorthand selector
 	var $ = cheerio.load(html);
 	// now, we grab the li within the article tag and do the following
-	$("article li").each(function(i, element){
+	$("h3.cd_headline").each(function(i, element){
 		//here we will save an empty  result object
 		var result = {};
 
 	// now we add the text and href of every link, and save them as properties of the result object
-	result.title = $(this).children("a").text();
-	result.link = $(this).children("a").attr("href");
+	result.title = $(this).children().children().text();
+	result.link = $(this).children().attr("href");
 
 	//using our artcile model, to create a new entry
 	//this will pass the result objets to the entry and the the title and link
@@ -153,25 +157,4 @@ app.post("/articles/:id", function(req, res){
 app.listen(3000, function(){
 	console.log("App running on port 3000");
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -17,7 +17,7 @@ var ArcticleSchema = new Schema({
 // this only saves one notes objectId, ref refers to note model
 	note: {
 		type: Schema.Types.ObjectId,
-		ref: "Note"
+		ref: "Comment"
 	}
 });
 

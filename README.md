@@ -1,1 +1,1 @@
-# Scraper
+# news-scraper
